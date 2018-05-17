@@ -1,0 +1,53 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/*CARDS*/
+
+.scrum-card {
+	position: relative; 
+	font-family: 'Oswald', sans-serif;
+	font-size: 10em;
+	border: 1px #000 solid;
+	border-radius: 10px;
+	margin: 0 auto;
+	padding: 0;
+	width: 200px;
+	height: 300px;
+	line-height: 300px;
+	white-space: nowrap;
+	text-align: center;
+}
+
+.center{
+	text-align: center;
+}
+
+.rigth{
+	text-align: right;
+}
