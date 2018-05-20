@@ -9,15 +9,15 @@ import PlanningPoker from './components/PlanningPoker'
 import Kanban from './components/Kanban'
 import Burndown from './components/Burndown'
 import ErrorComponent from './components/ErrorComponent';
-//import { Route, BrowserRouter as Router } from 'react-router-dom'
 import Login from './components/Login';
 import PlanningPokerForm from './components/PlanningPokerForm';
+import PlanningPokerCards from './components/PlanningPokerCards';
 
 class App extends Component {
 
   constructor() {
     super();
-    this.authenticated = '';
+    this.authenticated = 's';
   }
 
   render() {
@@ -33,6 +33,7 @@ class App extends Component {
             <Route path="/burndown" component={Burndown} />
             <Route path="/login" component={Login} />
             <Route path="/plannningpokerform" component={PlanningPokerForm} />
+            <Route path="/planningpokercards" component={PlanningPokerCards} />
             <Route path='*' component={ErrorComponent} />
           </Switch>
         </BrowserRouter>

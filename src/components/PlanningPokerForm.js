@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
+import PlanningPokerCards from './PlanningPokerCards';
+//import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+
 
 class PlanningPokerForm extends Component {
 
     constructor(props) {
         super(props);
-        //let _name4, _gameName1, _typeOfCards3, _gameDescription2;
+        let _name4, _gameName1, _typeOfCards3, _gameDescription2;
         this.state = {
             gameName1: '',
             gameDescription2: '',
@@ -46,10 +50,11 @@ class PlanningPokerForm extends Component {
     }
 
     clearForm() {
-        /*_name4.value = '';
-        _gameName1.value= '';
-        _typeOfCards3.value = '';
-        _gameDescription2.value = '';*/
+        this.setState({gameName1: ''});
+    }
+
+    myFunction(){
+        
     }
 
     render() {
@@ -60,15 +65,15 @@ class PlanningPokerForm extends Component {
                 <form onSubmit={this.handleSubmit} id="configForm">
 
                     <label className="sr-only" for="gameName1">Nome do Projeto</label>
-                    <input type="text" gameName1={this.state.value} onChange={this.handleChangeInputGameName} 
+                    <input type="text" value={this.state.gameName1} onChange={this.handleChangeInputGameName} 
                     /*ref={input => _gameName1 = input}*/ className="form-control mb-2 mr-sm-2" id="gameName1" placeholder="Nome do Projeto" /><br />
 
                     <label className="sr-only">Descrição do Projeto</label>
-                    <input type="text" gameDescription2={this.state.value} onChange={this.handleChangeInputGameDescription} 
+                    <input type="text" value={this.state.gameDescription2} onChange={this.handleChangeInputGameDescription} 
                     /*ref={input => _gameDescription2 = input}*/ className="form-control mb-2 mr-sm-2" id="gameDescription2" placeholder="Descrição do Projeto" /><br />
 
-                    <label className="sr-only" for="cardstype3">Tipo de Cartas</label>
-                    <select type="text" typeOfCards3={this.state.value} onChange={this.handleChangeSelectTypeOfCards3} 
+                    <label className="sr-only" for="typeOfCards3">Tipo de Cartas</label>
+                    <select value={this.state.typeOfCards3} onChange={this.handleChangeSelectTypeOfCards3} 
                     className="form-control mb-2 mr-sm-2" id="cardstype3">
                         <option value="scrum">Scrum</option>
                         <option selected value="fibonnaci">Fibonnaci</option>
@@ -83,7 +88,10 @@ class PlanningPokerForm extends Component {
                     <br />
 
                     <div className="center">
-                        <button type="submit" className="btn btn-primary center mb-2">Iniciar</button>
+                    <Link to='/planningpokercards'>
+                        <button type="submit" className="btn btn-primary center">Iniciar</button>
+                        {/*<Link type="submit" to='/planningpoker' className="btn btn-primary center mb-2">Iniciar</Link>*/}
+                    </Link>
                     </div>
                 </form>
             </div>

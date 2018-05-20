@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 //import Login from '../components/Login'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 const NavBar = (props) => (
         <div>
@@ -17,7 +18,9 @@ const NavBar = (props) => (
                             <ul className="navbar-nav mr-auto">
 
                                 <li className="nav-item">
-                                    <a className="nav-link" href="/planningpoker">Planning Poker</a>
+                                <BrowserRouter>
+                                    <Link className="nav-link" to="/planningpokerform">Planning Poker</Link>
+                                </BrowserRouter>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" href="/kanban">Kanban</a>

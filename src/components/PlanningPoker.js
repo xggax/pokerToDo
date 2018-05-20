@@ -5,19 +5,21 @@ import Participants from './Participants';
 
 class PlanningPoker extends Component {
 
+    islogged = true;
+    isScrumMaster = true;
+
     render() {
-        this.tempselect = 'sequence';
         return (
             <div>
                 <div className="row">
                     <div className="col-sm-4"></div>
-                    <div className="col-sm-4"><PlanningPokerForm /></div>
+                    <div className="col-sm-4"><PlanningPokerForm islogged={this.islogged} isScrumMaster={this.isScrumMaster} /></div>
                     <div className="col-sm-4"></div>
                 </div>
                 <div className="row">
-                    <div className="col-sm-4"><PlanningPokerCards tempselect={this.tempselect}/></div>
                     <div className="col-sm-4"></div>
-                    <div className="col-sm-4">< Participants /></div>
+                    <div className="col-sm-4"></div>
+                    <div className="col-sm-4"></div>
                 </div>
                 <div className="row"></div>
             </div>
