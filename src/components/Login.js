@@ -25,14 +25,15 @@ class Login extends Component {
         fire.auth().signInWithPopup(googleProvider) /*.then(success => {}).catch(err => {})    Otimizar pra esse aqui depois*/
             .then((result, error) => {
                 if (error) {
-                    toast.error('🦄 Incapaz de conectar com o Google!', {
+                    alert('Incapaz de conectar com o Google!')
+                    /*toast.error('🦄 Incapaz de conectar com o Google!', {
                         position: "top-right",
                         autoClose: 5000,
                         hideProgressBar: false,
                         closeOnClick: true,
                         pauseOnHover: true,
                         draggable: true
-                    });
+                    });*/
                 } else {
                     this.setState({ redirect: true })
                 }
@@ -40,14 +41,53 @@ class Login extends Component {
     }
 
     authWithEmailPassword(event) {
-        event.preventDefault()
-        console.log("autenticado com email ");
-        console.table([
-            {
-                email: this.emailInput.value,
-                password: this.passwordInput.value,
+        event.preventDefault();
+
+        const email = this.emailInput.value;
+        const password = this.passwordInput.value;
+        
+        fire.auth().fetchProvidersForEmail(email)
+            .then((googleProvider) => {
+            if(googleProvider.length === 0){
+                // create user
+                return fire.auth().createUserWithEmailAndPassword(email, password)
+            } else if (googleProvider.indexOf("password") === -1){
+                // Usaram o Google
+                this.loginForm.reset();
+                alert('Tente outra forma de login');
+                /* toast.warn('🦄 tente outra forma de login!', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true
+                    });
+                */
+            }else{
+                // Usuário está logado
+                return fire.auth().signInWithEmailAndPassword(email, password)
             }
-        ])
+        })
+        .then((user) => {
+            
+            if(user && user.email) {
+                this.loginForm.reset()
+                this.setState({redirect: true})
+            }
+        })
+        .catch((error) => {
+               alert('incapaz de conectar com o Google!')
+                /* toast.error('🦄 Incapaz de conectar com o Google!', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true
+                });
+                */ 
+        })
     }
 
 

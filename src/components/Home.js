@@ -14,7 +14,7 @@ class Home extends Component {
 
     homeCardKanban = {
         alt: 'Kanban',
-        title: 'Titulo aqui oh',
+        title: 'Kanban',
         text: 'Texto aqui desse card mirabolante e insano!',
         goto: 'Kanban',
         rota: '/kanban',
