@@ -5,7 +5,7 @@ class Home extends Component {
 
     homeCardPlanningPoker = {
         alt: 'Planning Poker',
-        title: 'Titulo aqui oh',
+        title: 'Planning Poker',
         text: 'Texto aqui desse card mirabolante e insano!',
         goto: 'Planning Poker',
         rota: '/planningpoker',
@@ -23,7 +23,7 @@ class Home extends Component {
 
     homeCardBurndown = {
         alt: 'Burndown Chart',
-        title: 'Titulo aqui oh',
+        title: 'Burndown Chart',
         text: 'Texto aqui desse card mirabolante e insano!',
         goto: 'Burndown Chart',
         rota: '/burndown',
