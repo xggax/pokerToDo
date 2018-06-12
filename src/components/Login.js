@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import login from '../images/login.png';
 import App from '../App';
 import { Redirect } from 'react-router-dom';
-import { fire, googleProvider } from './firebase/firebase';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { auth, fire, googleProvider } from './firebase/firebase';
+import { Toaster, Intent } from '@blueprintjs/core'
+
+
+
+//import { ToastContainer, toast } from 'react-toastify';
+//import 'react-toastify/dist/ReactToastify.css';
 
 
 class Login extends Component {
-    //notify = () => toast("Wow so easy !");
 
     constructor(props) {
         super(props);
@@ -16,24 +19,22 @@ class Login extends Component {
         this.authWithEmailPassword = this.authWithEmailPassword.bind(this);
         this.state = {
             redirect: false,
+            year: new Date().getFullYear()
+
         }
 
     }
 
     authWithGoogle() {
-        console.log("Autenticado com o google");
+        // console.log("Autenticado com o google");
         fire.auth().signInWithPopup(googleProvider) /*.then(success => {}).catch(err => {})    Otimizar pra esse aqui depois*/
             .then((result, error) => {
                 if (error) {
-                    alert('Incapaz de conectar com o Google!')
-                    /*toast.error('🦄 Incapaz de conectar com o Google!', {
-                        position: "top-right",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true
-                    });*/
+                    //alert('Incapaz de conectar com o Google!')
+                    this.toaster.show({
+                        intent: Intent.DANGER,
+                        message: "Incapaz de logar com o google"
+                    })
                 } else {
                     this.setState({ redirect: true })
                 }
@@ -45,55 +46,46 @@ class Login extends Component {
 
         const email = this.emailInput.value;
         const password = this.passwordInput.value;
-        
+
         fire.auth().fetchProvidersForEmail(email)
             .then((googleProvider) => {
-            if(googleProvider.length === 0){
-                // create user
-                return fire.auth().createUserWithEmailAndPassword(email, password)
-            } else if (googleProvider.indexOf("password") === -1){
-                // Usaram o Google
-                this.loginForm.reset();
-                alert('Tente outra forma de login');
-                /* toast.warn('🦄 tente outra forma de login!', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true
-                    });
-                */
-            }else{
-                // Usuário está logado
-                return fire.auth().signInWithEmailAndPassword(email, password)
-            }
-        })
-        .then((user) => {
-            
-            if(user && user.email) {
-                this.loginForm.reset()
-                this.setState({redirect: true})
-            }
-        })
-        .catch((error) => {
-               alert('incapaz de conectar com o Google!')
-                /* toast.error('🦄 Incapaz de conectar com o Google!', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true
-                });
-                */ 
-        })
+                if (googleProvider.length === 0) { // criar usuário, essa pessoa não tem uma conta.
+                    return fire.auth().createUserWithEmailAndPassword(email, password)
+                } 
+                else if (googleProvider.indexOf("password") === -1) {
+                    // Usaram o Google
+                    this.toaster.show({
+                        intent: Intent.WARNING,
+                        message: "Tente outro método de Login"
+                    })
+                    this.loginForm.reset();
+                } else {
+                    // Usuário está logado
+                    return fire.auth().signInWithEmailAndPassword(email, password)
+                }
+            })
+            .then((user) => {
+
+                if (user && user.email) {
+                    this.loginForm.reset()
+                    this.setState({ redirect: true })
+                }
+            })
+            .catch((error) => {
+                //alert('incapaz de conectar com o Google, verifique se seu email ou senha estão corretos!')
+                this.toaster.show({
+                    intent: Intent.DANGER,
+                    message: error.message
+                })
+            })
     }
 
 
     render() {
+        const { from } = this.props.location.state || { from: { pathname: '/home' } }
+
         if (this.state.redirect === true) {
-            return <Redirect to='/' />
+            return <Redirect to={from} />
         }
         return (
             <div className="container">
@@ -105,7 +97,7 @@ class Login extends Component {
                             <div className="card card-shadow">
                                 <img className="card-img-top img-login align-self-center" style={{ width: '200px', height: '200px' }} src={login} alt="Firebase" />
                                 <div className="card-body">
-                                    {/*<ToastContainer ref={(element) => { this.toastContainer = element }} />*/}
+                                    <Toaster ref={(element) => { this.toaster = element }} />
                                     <button type="submit" onClick={() => { this.authWithGoogle() }} className="btn btn-primary btn-block">Login com Google</button>
                                     <hr style={{ marginTop: "10px", marginBottom: "10px" }} />
                                     <div style={{ marginBottom: "10px" }} className="">
@@ -122,7 +114,7 @@ class Login extends Component {
                                             <input type="password" ref={(input) => { this.passwordInput = input }} className="form-control" id="inputPassword" placeholder="Senha" />
                                         </div>
                                         <button type="submit" value="Log In" className="btn btn-primary btn-block">Login</button>
-                                        <small id="cardHelp" className="form-text text-muted text-center">@PokerToDo 2018</small>
+                                        <small id="cardHelp" className="form-text text-muted text-center">@PokerToDo {this.state.year}</small>
                                     </form>
                                 </div>
                             </div>

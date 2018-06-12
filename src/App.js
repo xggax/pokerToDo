@@ -1,9 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import NavBar from './ui/NavBar';
 import Home from './components/Home';
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import About from './components/About'
 import PlanningPoker from './components/PlanningPoker'
 import Kanban from './components/Kanban'
@@ -16,11 +15,25 @@ import PlanningPokerCards from './components/PlanningPokerCards';
 import { fire, base } from './components/firebase/firebase';
 
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import { Spinner } from '@blueprintjs/core';
+import Apresentation from './components/Apresentation';
+
+
+function AuthenticatedRoute({ Component: Component, authenticated, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={
+        (props) => (authenticated === true)
+        ? <Component {...props} {...rest} />
+        : <Redirect to='/login' />} /> //{{ pathname: '/login', state: { from: props.location } }}
+  )
+}
 
 
 class App extends Component {
 
-  
+
 
   constructor() {
     super();
@@ -28,7 +41,7 @@ class App extends Component {
       authenticated: false,
       loading: true
     }
-    
+
   }
 
   componentDidMount() {
@@ -58,29 +71,38 @@ class App extends Component {
 
 
   render() {
-    if(this.state.loading === true){
+
+    if (this.state.loading === true) {
       return (
-        <div style={{textAlign: "center", position: "absolute", top: "25%", left: "50%"}}>
-            <h3>Loading...</h3>
+        <div style={{ textAlign: "center", position: "absolute", top: "50%", left: "25%" }}>
+          <h3>Loading...</h3>
+          {/*<Spinner />*/}<i className="fas fa-spinner fa-pulse"></i>
         </div>
       )
     }
     const logo = 'PokerToDo';
     return (
       <div className="container-fluid">
-        <NavBar logo={logo} authenticated={this.state.authenticated} />
         <BrowserRouter>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/planningpoker" component={PlanningPoker} />
-            <Route path="/kanban" component={Kanban} />
-            <Route path="/burndown" component={Burndown} />
-            <Route path="/login" component={Login} />
-            <Route path="/logout" component={Logout} />
-            <Route path="/plannningpokerform" component={PlanningPokerForm} />
-            <Route path="/planningpokercards" component={PlanningPokerCards} />
-            <Route path='*' component={ErrorComponent} />
-          </Switch>
+          <div>
+            <NavBar logo={logo} authenticated={this.state.authenticated} />
+            <Switch>
+              <AuthenticatedRoute
+                exact path="/home"
+                authenticated={this.state.authenticated}
+                component={Home}
+                />
+              {/*<Route path="/" component={Apresentation} />*/}
+              <Route path="/planningpoker" component={PlanningPoker} />
+              <Route path="/kanban" component={Kanban} />
+              <Route path="/burndown" component={Burndown} />
+              <Route path="/login" component={Login} />
+              <Route path="/logout" component={Logout} />
+              <Route path="/plannningpokerform" component={PlanningPokerForm} />
+              <Route path="/planningpokercards" component={PlanningPokerCards} />
+              {/*<Route path='*' component={ErrorComponent} />*/}
+            </Switch>
+          </div>
         </BrowserRouter>
         {/*<Router> 
           <Fragment> 

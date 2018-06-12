@@ -33,10 +33,10 @@ class Home extends Component {
 
 
     render() {
-
         return (
             <div className="container text-center">
                 <div className="row">
+                    {this.props.authenticated}
                     <HomeCard {...this.homeCardPlanningPoker} />
                     <HomeCard {...this.homeCardKanban} />
                     <HomeCard {...this.homeCardBurndown} />

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { fire } from './firebase/firebase'
+import { Spinner } from '@blueprintjs/core';
 
 class Logout extends Component {
 
@@ -29,8 +30,8 @@ class Logout extends Component {
 
         return (
             <div style={{ textAlign: "center", position: "absolute", top: "25%", left: "50%" }}>
-                <h3>Logging Out...</h3>
-                <p>icon</p>
+                <h3>LogOut...</h3>
+                {/*<Spinner/*/}>
             </div>
         )
     }

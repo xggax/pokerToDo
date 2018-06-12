@@ -19,7 +19,7 @@ class PlanningPokerForm extends Component {
         this.handleChangeInputGameName = this.handleChangeInputGameName.bind(this);
         this.handleChangeInputGameDescription = this.handleChangeInputGameDescription.bind(this);
         this.handleChangeSelectTypeOfCards3 = this.handleChangeSelectTypeOfCards3.bind(this);
-        this.handleChangeInputName = this.handleChangeInputName.bind(this);
+        this.handleChangeInputName4 = this.handleChangeInputName4.bind(this);
 
         this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -45,7 +45,7 @@ class PlanningPokerForm extends Component {
         this.setState({ typeOfCards3: event.target.value });
     }
 
-    handleChangeInputName(event) {
+    handleChangeInputName4(event) {
         this.setState({ name4: event.target.value });
     }
 
@@ -75,15 +75,15 @@ class PlanningPokerForm extends Component {
                     <label className="sr-only" for="typeOfCards3">Tipo de Cartas</label>
                     <select value={this.state.typeOfCards3} onChange={this.handleChangeSelectTypeOfCards3} 
                     className="form-control mb-2 mr-sm-2" id="cardstype3">
-                        <option value="scrum">Scrum</option>
                         <option selected value="fibonnaci">Fibonnaci</option>
+                        {/*<option value="scrum">Scrum</option>
                         <option value="sequence">Sequencial</option>
-                        <option value="t-shirt">T-Shirt</option>
+                        <option value="t-shirt">T-Shirt</option>*/}
                     </select>
                     <br/>
 
                     <label className="sr-only" for="name4">Nome do Player</label>
-                    <input type="text" name4={this.state.value} onChange={this.handleChangeInputName} 
+                    <input type="text" name4={this.state.value} onChange={this.handleChangeInputName4} 
                     /* ref={input => _name4 = input}*/ className="form-control mb-2 mr-sm-2" id="name4" placeholder="Seu nome, ScrumMaster!" />
                     <br />
 
