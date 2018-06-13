@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import login from '../images/login.png';
-import App from '../App';
 import { Redirect } from 'react-router-dom';
 import { auth, fire, googleProvider } from './firebase/firebase';
 import { Toaster, Intent } from '@blueprintjs/core'
@@ -19,7 +18,8 @@ class Login extends Component {
         this.authWithEmailPassword = this.authWithEmailPassword.bind(this);
         this.state = {
             redirect: false,
-            year: new Date().getFullYear()
+            year: new Date().getFullYear(),
+            user: null
 
         }
 
@@ -27,17 +27,20 @@ class Login extends Component {
 
     authWithGoogle() {
         // console.log("Autenticado com o google");
-        fire.auth().signInWithPopup(googleProvider) /*.then(success => {}).catch(err => {})    Otimizar pra esse aqui depois*/
-            .then((result, error) => {
-                if (error) {
+        fire.auth().signInWithPopup(googleProvider)
+            .then((result) => {
+                    const user = result.user;
+                    this.setState({ 
+                        user: user,
+                        redirect: true,   
+                     });
+            })
+            .catch((error) => {
                     //alert('Incapaz de conectar com o Google!')
                     this.toaster.show({
                         intent: Intent.DANGER,
                         message: "Incapaz de logar com o google"
                     })
-                } else {
-                    this.setState({ redirect: true })
-                }
             })
     }
 

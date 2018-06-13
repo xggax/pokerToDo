@@ -20,10 +20,7 @@ class PlanningPokerCards extends Component {
         this.database = fire.database().ref().child('tarefas');
 
         this.state = {
-            tarefas: [
-                { id: 1, tarefaContent: "Tarefa 1 aqui" },
-                { id: 2, tarefaContent: "Tarefa 2 aqui" }
-            ],
+            tarefas: [],
             valueCard: null,
             cardVoted: null,
             authenticated: "s",
@@ -80,6 +77,10 @@ class PlanningPokerCards extends Component {
                     tarefaAnterior.splice(i, 1);
                 }
             }
+            
+            this.setState({
+                tarefas: tarefaAnterior
+            })
         })
 
     }
@@ -97,12 +98,8 @@ class PlanningPokerCards extends Component {
     }
 
     removerTarefa(tarefaId) {
+        console.log("id: " + tarefaId);
         this.database.child(tarefaId).remove();
-
-    }
-
-
-    componentDidMount() {
 
     }
 
@@ -185,11 +182,12 @@ class PlanningPokerCards extends Component {
     render() {
         return (
             <div className="containner">
-                <br />
+            
+                {/*<br />
                 <div >
                     <h1 className="center">Planning Poker</h1>
                 </div>
-                <br /><br />
+                <br /><br />*/}
                 <div className="row">
                     <div className="col-sm-4">
                         <h3 className="center">Poker</h3>

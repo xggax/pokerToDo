@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../tarefa/Tarefa.css';
 import propTypes from 'prop-types';
-import PlanningPokerCards from '../components/PlanningPokerCards'
 
 class Tarefa extends Component {
     constructor(props) {
@@ -22,9 +21,9 @@ class Tarefa extends Component {
     render(props) {
         return (
             <div className="tarefa fade-in">
-                <span className="closebtn" onClick={() => this.handleRemoveTarefa(this.tarefaId)}>
+                <div className="closebtn" onClick={() => this.handleRemoveTarefa(this.tarefaId)}>
                     &times;
-                </span>
+                </div>
                 <p className="tarefaContent">{this.tarefaContent}</p>
             </div>
         );
