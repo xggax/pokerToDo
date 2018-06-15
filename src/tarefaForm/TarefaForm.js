@@ -44,7 +44,7 @@ escrevaTarefa(){
                 value={this.state.novaTarefaContent}
                 onChange={this.handleUserInput}
                 />{' '}
-                <button className="tarefaButton" onClick={this.escrevaTarefa}>Add Tarefa</button>
+                <button className="tarefaButton" onClick={this.escrevaTarefa}><i class="fas fa-plus fa-xs"></i> Estória</button>
             </div>
         );
     }

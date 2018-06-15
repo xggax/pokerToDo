@@ -26,10 +26,11 @@ function AuthenticatedRoute({ Component: Component, authenticated, ...rest }) {
       render={
         (props) => (authenticated === true)
         ? <Component {...props} {...rest} />
-        : <Redirect to='/login' />} /> //{{ pathname: '/login', state: { from: props.location } }}
+      : <Redirect to='/login' /> } />
   )
 }
 
+// {{ pathname: '/login', state: { from: props.location }} } /> } />
 
 class App extends Component {
 
@@ -39,24 +40,40 @@ class App extends Component {
     super();
     this.state = {
       authenticated: false,
-      loading: true
+      //currentUser: null,
+      loading: true,
     }
 
   }
 
-  componentDidMount() {
-
+  /*
+  setCurrentUser(user){
+    if(user){
+      this.setState({
+        currentUser: user,
+        authenticated: true
+      })
+    }else{
+      this.setState({
+        currentUser: null,
+        authenticated: false
+      })
+    }
   }
+  */
+
 
   componentWillMount() {
     this.removeAuthListener = fire.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({
+          //currentUser: user,
           authenticated: true,
           loading: false
         })
       } else {
         this.setState({
+          //currentUser: null,
           authenticated: false,
           loading: false
         })

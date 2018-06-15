@@ -105,7 +105,7 @@ class Login extends Component {
                                     <hr style={{ marginTop: "10px", marginBottom: "10px" }} />
                                     <div style={{ marginBottom: "10px" }} className="">
                                         <h5>Nota</h5>
-                                        Caso não possua uma conta, este formulário irá criar sua conta.
+                                        Caso <strong>não possua</strong> uma conta, o formulário abaixo irá criar sua conta. <br/>Se <strong>já tens</strong>, é só logar!
                                     </div>
                                     <form onSubmit={(event) => { this.authWithEmailPassword(event) }} ref={(form) => { this.loginForm = form }}>
                                         <div className="form-group">

@@ -6,15 +6,18 @@ class Participants extends Component {
             <div className="container">
                 <h3 className="center">Players em jogo</h3>
                 <br />
-                <ul className="list-group">
-                    <li className="list-group-item">Altrano </li>
-                    <li className="list-group-item">Beltrano</li>
-                    <li className="list-group-item">Ciclano</li>
-                    <li className="list-group-item">Deltrano</li>
-                    <li className="list-group-item">Eltrano</li>
-                    <li className="list-group-item">Fulano</li>
-                </ul>
-
+                <div class="container">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Membros</div>
+                        <div class="panel-body">
+                        <p>Membro1</p>                        
+                        <p>Membro2</p>
+                        <p>Membro3</p>
+                        <p>Membro4</p>
+                        <p>Membro5</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }

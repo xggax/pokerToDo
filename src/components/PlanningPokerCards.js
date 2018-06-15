@@ -57,7 +57,7 @@ class PlanningPokerCards extends Component {
 
     componentWillMount() {
         const tarefaAnterior = this.state.tarefas
-        
+
         //DataSnapshot
         this.database.on('child_added', snap => {
             tarefaAnterior.push({
@@ -77,7 +77,7 @@ class PlanningPokerCards extends Component {
                     tarefaAnterior.splice(i, 1);
                 }
             }
-            
+
             this.setState({
                 tarefas: tarefaAnterior
             })
@@ -182,16 +182,48 @@ class PlanningPokerCards extends Component {
     render() {
         return (
             <div className="containner">
-            
+
                 {/*<br />
                 <div >
                     <h1 className="center">Planning Poker</h1>
                 </div>
                 <br /><br />*/}
                 <div className="row">
-                    <div className="col-sm-4">
+                    <div className="col-sm-6">
+                        <br />
                         <h3 className="center">Poker</h3>
                         <br />
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">
+                                                <span class="glyphicon glyphicon-bookmark"></span>Deck
+                                            </h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-2"><input type="button" class="btn btn-default btn-lg  disabled" data-point="0" value="0" /></div>
+                                                <div class="col-sm-2"><input type="button" class="btn btn-default btn-lg  disabled" data-point="1/2" value="1/2" /></div>
+                                                <div class="col-sm-2"><input type="button" class="btn btn-default btn-lg  disabled" data-point="1" value="1" /></div>
+                                                <div class="col-sm-2"><input type="button" class="btn btn-default btn-lg  disabled" data-point="2" value="2" /></div>
+                                                <div class="col-sm-2"><input type="button" class="btn btn-default btn-lg  disabled" data-point="3" value="3" /></div>
+                                                <div class="col-sm-2"><input type="button" class="btn btn-default btn-lg  disabled" data-point="5" value="5" /></div>
+                                                <div class="col-sm-2"><input type="button" class="btn btn-default btn-lg  disabled" data-point="8" value="8" /></div>
+                                                <div class="col-sm-2"><input type="button" class="btn btn-default btn-lg  disabled" data-point="13" value="13" /></div>
+                                                <div class="col-sm-2"><input type="button" class="btn btn-default btn-lg  disabled" data-point="20" value="20" /></div>
+                                                <div class="col-sm-2"><input type="button" class="btn btn-default btn-lg  disabled" data-point="40" value="40" /></div>
+                                                <div class="col-sm-2"><input type="button" class="btn btn-default btn-lg  disabled" data-point="99" value="99" /></div>
+                                                <div class="col-sm-2"><input type="button" class="btn btn-default btn-lg  disabled" data-point="?" value="?" /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        {/*
                         <div className="scrum-card">
                             <span>{this.state.valueCard}</span>
                         </div><br />
@@ -211,26 +243,43 @@ class PlanningPokerCards extends Component {
                                 <option value="40">40</option>
                                 <option value="99">99</option>
                             </select>
-                            <br />
-                            <row>
-                                <button id="show_button" onClick={this.handleClick} className="btn btn-primary btn-sm">Votar</button>{' '}
+                        <br />*/}
+                            {/*Caso seja ScrumMaster renderizar*/}
 
-                                {/*Condicional para aparecer o botão de cancelar a votação caso seja scrum master*/}
-
-                                {this.state.authenticated && this.state.scrumMaster ?
-                                    (<button onClick={this.handleClick2} className="btn btn-primary btn-sm">Cancelar</button>) : null
-                                }
-                            </row>
-                            {'quantidade de 99: ' + this.state.cont99}
-                        </form>
+                            {this.state.authenticated && this.state.scrumMaster ?
+                                (
+                                    <div className="row">
+                                        <div className="col-6 col-sm-6 right">
+                                            <button onClick={this.handleClick2} className="btn btn-primary btn-sm">Iniciar Rodada</button><br /><br />
+                                            <button onClick={this.handleClick2} className="btn btn-primary btn-sm">Cancelar Rodada</button>
+                                        </div>
+                                        <div className="col-6 col-sm-6 left">
+                                            <button onClick={this.handleClick2} className="btn btn-primary btn-sm">Terminar Rodada</button><br /><br />
+                                            <button onClick={this.handleClick2} className="btn btn-primary btn-sm">Finalizar Jogo</button>
+                                        </div>
+                                    </div>
+                                )
+                                :
+                                (
+                                    <div>
+                                        <button id="show_button" onClick={this.handleClick} className="btn btn-primary btn-sm">Votar</button>
+                                    </div>
+                                )
+                            }
+                      {/*  </form> */}
                     </div>
-                    <div className="col-sm-6">
-                        {/*<div></div>
-                        <h3 className="center">UserStory</h3>
-                        < UserStory />*/}
-                        <div className="tarefasWrapper">
-                            <div className="tarefasHeader">
-                                <div className="heading">Tarefas</div>
+                    <div className="col-sm-4">
+                        
+                        <h3 className="center">Estórias</h3>
+                        <h4 className="center">Em votação</h4>
+                        <br/>
+                        <h4 className="center">Lista de estórias</h4>
+                            <div className="tarefasWrapper">
+                            {/*<div className="tarefasHeader">
+                                <div className="heading">Estórias</div>
+                            </div>*/}
+                            <div className="tarefasFooter">
+                                <TarefaForm addTarefa={this.addTarefa} />
                             </div>
                             <div className="tarefasBody">
                                 {
@@ -244,13 +293,14 @@ class PlanningPokerCards extends Component {
                                     })
                                 }
                             </div>
-                            <div className="tarefasFooter">
-                                <TarefaForm addTarefa={this.addTarefa} />
-                            </div>
+                            
+                            <br/>
                         </div>
+                        <h4 className="center">Estórias votadas</h4>
+                        <br/>
                     </div>
-
                     <div className="col-sm-2">
+                        <br />
                         <Participants />
                     </div>
                 </div>
