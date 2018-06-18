@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 const NavBar = (props) => (
     <div>
@@ -23,7 +22,7 @@ const NavBar = (props) => (
                             <ul className="navbar-nav mr-auto">
 
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/planningpokercards">Planning Poker</Link>
+                                    <Link className="nav-link" to="/planningpokerform">Planning Poker</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/kanban">Kanban</Link>

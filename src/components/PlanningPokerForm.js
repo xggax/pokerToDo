@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
 import PlanningPokerCards from './PlanningPokerCards';
-//import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import { Link } from 'react-router-dom';
 
 
 class PlanningPokerForm extends Component {
 
     constructor(props) {
         super(props);
-        let _name4, _gameName1, _typeOfCards3, _gameDescription2;
         this.state = {
             gameName1: '',
             gameDescription2: '',
             typeOfCards3: '',
-            name4: ''
+            name4: '',
+            pressionado: null,
+            isScrumMaster: null
         };
 
         this.handleChangeInputGameName = this.handleChangeInputGameName.bind(this);
@@ -26,10 +25,12 @@ class PlanningPokerForm extends Component {
     }
 
 
-    handleSubmit = (event) => {
+    handleSubmit(event) {
         event.preventDefault();
-        alert('o valor digitado: ' + ' ' + this.state.gameName1 + ' ' + this.state.gameDescription2 + ' ' + this.state.typeOfCards3
-        + ' ' + this.state.name4);
+        const press = this.state.pressionado;
+        this.setState({
+            pressionado: press
+        })
         this.clearForm();
     }
 
@@ -50,52 +51,53 @@ class PlanningPokerForm extends Component {
     }
 
     clearForm() {
-        this.setState({gameName1: ''});
-    }
-
-    myFunction(){
-        
+        this.setState({ gameName1: '' });
     }
 
     render() {
-        return (
+        if (this.state.pressionado === null) {
+            return (
+                <div className="container">
+                    
+                    <h1 class="center">Configuração da sala do Game</h1>
+                    
+                    <form onSubmit={this.handleSubmit} id="configForm">
 
-            <div className="container">
-                <h1 class="center">Configuração da sala do Game</h1>
-                <form onSubmit={this.handleSubmit} id="configForm">
+                        <label className="sr-only" for="gameName1">Nome do Projeto</label>
+                        <input type="text" value={this.state.gameName1} onChange={this.handleChangeInputGameName}
+                        /*ref={input => _gameName1 = input}*/ className="form-control mb-2 mr-sm-2" id="gameName1" placeholder="Nome do Projeto" /><br />
 
-                    <label className="sr-only" for="gameName1">Nome do Projeto</label>
-                    <input type="text" value={this.state.gameName1} onChange={this.handleChangeInputGameName} 
-                    /*ref={input => _gameName1 = input}*/ className="form-control mb-2 mr-sm-2" id="gameName1" placeholder="Nome do Projeto" /><br />
+                        <label className="sr-only">Descrição do Projeto</label>
+                        <input type="text" value={this.state.gameDescription2} onChange={this.handleChangeInputGameDescription}
+                        /*ref={input => _gameDescription2 = input}*/ className="form-control mb-2 mr-sm-2" id="gameDescription2" placeholder="Descrição do Projeto" /><br />
 
-                    <label className="sr-only">Descrição do Projeto</label>
-                    <input type="text" value={this.state.gameDescription2} onChange={this.handleChangeInputGameDescription} 
-                    /*ref={input => _gameDescription2 = input}*/ className="form-control mb-2 mr-sm-2" id="gameDescription2" placeholder="Descrição do Projeto" /><br />
+                        <label className="sr-only" for="typeOfCards3">Tipo de Cartas</label>
+                        <select value={this.state.typeOfCards3} onChange={this.handleChangeSelectTypeOfCards3}
+                            className="form-control mb-2 mr-sm-2" id="cardstype3">
+                            <option selected value="fibonnaci">Fibonnaci</option>
+                            <option value="scrum">Scrum</option>
+                            <option value="sequence">Sequencial</option>
+                            <option value="t-shirt">T-Shirt</option>
+                        </select>
+                        <br />
 
-                    <label className="sr-only" for="typeOfCards3">Tipo de Cartas</label>
-                    <select value={this.state.typeOfCards3} onChange={this.handleChangeSelectTypeOfCards3} 
-                    className="form-control mb-2 mr-sm-2" id="cardstype3">
-                        <option selected value="fibonnaci">Fibonnaci</option>
-                        {/*<option value="scrum">Scrum</option>
-                        <option value="sequence">Sequencial</option>
-                        <option value="t-shirt">T-Shirt</option>*/}
-                    </select>
-                    <br/>
+                        <label className="sr-only" for="name4">Nome do Player</label>
+                        <input type="text" name4={this.state.value} onChange={this.handleChangeInputName4}
+                        /* ref={input => _name4 = input}*/ className="form-control mb-2 mr-sm-2" id="name4" placeholder="Seu nome, ScrumMaster!" />
+                        <br />
 
-                    <label className="sr-only" for="name4">Nome do Player</label>
-                    <input type="text" name4={this.state.value} onChange={this.handleChangeInputName4} 
-                    /* ref={input => _name4 = input}*/ className="form-control mb-2 mr-sm-2" id="name4" placeholder="Seu nome, ScrumMaster!" />
-                    <br />
+                        <div className="center">
+                            <button type="submit" className="btn btn-primary center">Iniciar</button>
+                        </div>
+                    </form>
+                </div>
+            )
+        } else {
+            return (
+                <div><PlanningPokerCards/></div>
+            )
+        }
 
-                    <div className="center">
-                    <Link to='/planningpokercards'>
-                        <button type="submit" className="btn btn-primary center">Iniciar</button>
-                        {/*<Link type="submit" to='/planningpoker' className="btn btn-primary center mb-2">Iniciar</Link>*/}
-                    </Link>
-                    </div>
-                </form>
-            </div>
-        )
     }
 }
 

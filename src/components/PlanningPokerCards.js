@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import PlanningPokerForm from './PlanningPokerForm';
-import PlanningPoker from './PlanningPoker'
 import Participants from './Participants';
-import UserStory from './UserStory';
 import Tarefa from '../tarefa/Tarefa';
 import TarefaForm from '../tarefaForm/TarefaForm';
 import { fire, database } from './firebase/firebase';
@@ -118,7 +115,6 @@ class PlanningPokerCards extends Component {
         this.state.cardVoted = this.state.valueCard;
         console.log(this.state.cardVoted);
         alert('Seu voto foi: ' + this.state.cardVoted);
-        this.incrementVoted();
     }
 
     handleClick2(event) {
@@ -126,125 +122,73 @@ class PlanningPokerCards extends Component {
         alert('você cancelou a votação!');
     }
 
-    incrementVoted = () => {
-        switch (this.state.cardVoted) {
-            case 0:
-                this.setState({ cont0: this.state.cont0 + 1 })
-                alert('quantidade de 0: ' + this.state.cont0);
-                break;
-            case '½':
-                this.setState({ cont12: this.state.cont12 + 1 })
-                alert('quantidade de 1/2: ' + this.state.cont12);
-                break;
-            case 1:
-                this.setState({ cont1: this.state.cont1 + 1 })
-                alert('quantidade de 1: ' + this.state.cont1);
-                break;
-            case 2:
-                this.setState({ cont2: this.state.cont2 + 1 })
-                alert('quantidade de 2:' + this.state.cont2);
-                break;
-            case 3:
-                this.setState({ cont3: this.state.cont3 + 1 })
-                alert('quantidade de 3: ' + this.state.cont3);
-                break;
-            case 5:
-                this.setState({ cont5: this.state.cont5 + 1 })
-                alert('quantidade de 5: ' + this.state.cont5);
-                break;
-            case 8:
-                this.setState({ cont8: this.state.cont8 + 1 })
-                alert('quantidade de 8: ' + this.state.cont8);
-            case 13:
-                this.setState({ cont13: this.state.cont13 + 1 })
-                alert('quantidade de 13: ' + this.state.cont13);
-                break;
-            case 20:
-                this.setState({ cont20: this.state.cont20 + 1 })
-                alert('quantidade de 20: ' + this.state.cont20);
-                break;
-            case 40:
-                this.setState({ cont40: this.state.cont40 + 1 })
-                alert('quantidade de 40: ' + this.state.cont40);
-                break;
-            case 99:
-                this.setState(prevState => {
-                    return { cont99: prevState.cont99 + 1 }
-                })
-                alert('quantidade de 99: ' + this.state.cont99.value);
-                console.log(this.state.cont99)
-                break;
-        }
-
-    }
-
 
     render() {
         return (
             <div className="containner">
-
-                {/*<br />
-                <div >
-                    <h1 className="center">Planning Poker</h1>
-                </div>
-                <br /><br />*/}
                 <div className="row">
                     <div className="col-sm-6">
                         <br />
                         <h3 className="center">Poker</h3>
                         <br />
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="panel panel-primary">
-                                        <div class="panel-heading">
-                                            <h3 class="panel-title">
-                                                <span class="glyphicon glyphicon-bookmark"></span>Deck
+                        <h5 className="center">Board de votação ativo</h5>
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-md-12">
+
+                                    <h3>Painel de Votação</h3>
+                                    <div className="panel panel-default">
+                                        <div className="panel-body">
+                                            <p>Cartas viradas representando cada membro devem estar aqui viradas</p>
+                                            <p>A quantidade de cartas deve ser renderizada incrementalmente igual a quantidade de membros</p>
+                                            <p>Ao finalizar a rodada as cartas devem ter seus estados trocados<br />
+                                                para os estados atuais de valores da votação de cada membro para a estória
+                                        </p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <div className="panel panel-primary">
+                                        <div className="panel-heading">
+                                            <h3 className="panel-title">
+                                                <span className="glyphicon glyphicon-bookmark"></span>Deck
                                             </h3>
                                         </div>
-                                        <div class="panel-body">
-                                            <div class="row">
-                                                <div class="col-sm-2"><input type="button" class="btn btn-default btn-lg  disabled" data-point="0" value="0" /></div>
-                                                <div class="col-sm-2"><input type="button" class="btn btn-default btn-lg  disabled" data-point="1/2" value="1/2" /></div>
-                                                <div class="col-sm-2"><input type="button" class="btn btn-default btn-lg  disabled" data-point="1" value="1" /></div>
-                                                <div class="col-sm-2"><input type="button" class="btn btn-default btn-lg  disabled" data-point="2" value="2" /></div>
-                                                <div class="col-sm-2"><input type="button" class="btn btn-default btn-lg  disabled" data-point="3" value="3" /></div>
-                                                <div class="col-sm-2"><input type="button" class="btn btn-default btn-lg  disabled" data-point="5" value="5" /></div>
-                                                <div class="col-sm-2"><input type="button" class="btn btn-default btn-lg  disabled" data-point="8" value="8" /></div>
-                                                <div class="col-sm-2"><input type="button" class="btn btn-default btn-lg  disabled" data-point="13" value="13" /></div>
-                                                <div class="col-sm-2"><input type="button" class="btn btn-default btn-lg  disabled" data-point="20" value="20" /></div>
-                                                <div class="col-sm-2"><input type="button" class="btn btn-default btn-lg  disabled" data-point="40" value="40" /></div>
-                                                <div class="col-sm-2"><input type="button" class="btn btn-default btn-lg  disabled" data-point="99" value="99" /></div>
-                                                <div class="col-sm-2"><input type="button" class="btn btn-default btn-lg  disabled" data-point="?" value="?" /></div>
+                                        <div className="panel-body">
+                                            <div className="row">
+
+                                                <div className="col-sm-2"><input type="button" className="btn btn-outline-secondary" data-point="0" value="0" /></div>
+                                                <div className="col-sm-2"><input type="button" className="btn btn-outline-secondary" data-point="1/2" value="1/2" /></div>
+                                                <div className="col-sm-2"><input type="button" className="btn btn-outline-secondary" data-point="1" value="1" /></div>
+                                                <div className="col-sm-2"><input type="button" className="btn btn-outline-secondary" data-point="2" value="2" /></div>
+                                                <div className="col-sm-2"><input type="button" className="btn btn-outline-secondary" data-point="3" value="3" /></div>
+                                                <div className="col-sm-2"><input type="button" className="btn btn-outline-secondary" data-point="5" value="5" /></div>
+
+
+                                                <div className="col-sm-2"><input type="button" className="btn btn-outline-secondary" data-point="8" value="8" /></div>
+                                                <div className="col-sm-2"><input type="button" className="btn btn-outline-secondary" data-point="13" value="13" /></div>
+                                                <div className="col-sm-2"><input type="button" className="btn btn-outline-secondary" data-point="20" value="20" /></div>
+                                                <div className="col-sm-2"><input type="button" className="btn btn-outline-secondary" data-point="40" value="40" /></div>
+                                                <div className="col-sm-2"><input type="button" className="btn btn-outline-secondary" data-point="99" value="99" /></div>
+                                                <div className="col-sm-2"><input type="button" className="btn btn-outline-secondary" data-point="?" value="?" /></div>
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <br />
-                        {/*
-                        <div className="scrum-card">
-                            <span>{this.state.valueCard}</span>
-                        </div><br />
-                        <form onSubmit={this.handleSubmit} className="center">
-                            <label htmlFor="select-choice-a" className="select">Selecione o valor:</label>
-                            <select value={this.state.valueCard} onChange={this.handleChange} name="valueCard" id="valueCard" data-native-menu="false">
-                                <option defaultValue disabled  >selecione</option>
-                                <option value="0">0</option>
-                                <option value="½">½</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="5">5</option>
-                                <option value="8">8</option>
-                                <option value="13">13</option>
-                                <option value="20">20</option>
-                                <option value="40">40</option>
-                                <option value="99">99</option>
-                            </select>
-                        <br />*/}
-                            {/*Caso seja ScrumMaster renderizar*/}
+
+                            <br />
+
+                            {/*BOTÕES E CONDIÇÕES SE É SCRUM MASTER OU APENAS MEMBRO*/}
 
                             {this.state.authenticated && this.state.scrumMaster ?
                                 (
@@ -266,15 +210,39 @@ class PlanningPokerCards extends Component {
                                     </div>
                                 )
                             }
-                      {/*  </form> */}
+                        </div>
+
+                        {/*ESTÓRIA MAIS PONTUADA E ESTÓRIA MENOS PONTUADA*/}
+                        <br />
+                        <div className="container">
+                            <h3>Estórias Mais e Menos</h3>
+                            <p>Aqui em baixo ficam as estórias já votadas que possuem mmaior e menor pontuação, respectivamente.</p>
+                            <div className="panel-group">
+                                <div className="panel panel-default">
+                                    <div className="panel-heading">Estória Maior Pontuação</div>
+                                    <div className="panel-body">Estória+++++++++++++++++++++</div>
+                                </div>
+                                <div className="panel panel-default">
+                                    <div className="panel-heading">Estória Menor Pontuação</div>
+                                    <div className="panel-body">Estória----------------------------</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/*ESTÓRIAS*/}
+
                     </div>
                     <div className="col-sm-4">
-                        
+                        <br />
                         <h3 className="center">Estórias</h3>
+                        <br />
                         <h4 className="center">Em votação</h4>
-                        <br/>
+                        <p className="center">Ao iniciar a rodada a estória do topo da fila deve subir pra cá</p>
+                        <p className="center">Esse item deve ficar destacado de alguma forma pra facilitar a compreensão</p>
+                        <hr />
+                        <br />
                         <h4 className="center">Lista de estórias</h4>
-                            <div className="tarefasWrapper">
+                        <div className="tarefasWrapper">
                             {/*<div className="tarefasHeader">
                                 <div className="heading">Estórias</div>
                             </div>*/}
@@ -293,11 +261,13 @@ class PlanningPokerCards extends Component {
                                     })
                                 }
                             </div>
-                            
-                            <br/>
+
+                            <br />
+                            <hr />
                         </div>
                         <h4 className="center">Estórias votadas</h4>
-                        <br/>
+                        <p className="center">A estória, ao terminar a votação, deve vir pra cá</p>
+                        <br />
                     </div>
                     <div className="col-sm-2">
                         <br />

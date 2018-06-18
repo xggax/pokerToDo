@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import PlanningPokerForm from './PlanningPokerForm';
-import PlanningPokerCards from './PlanningPokerCards';
-import Participants from './Participants';
 
 class PlanningPoker extends Component {
 

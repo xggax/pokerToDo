@@ -8,7 +8,7 @@ class Home extends Component {
         title: 'Planning Poker',
         text: 'Texto aqui desse card mirabolante e insano!',
         goto: 'Planning Poker',
-        rota: '/planningpoker',
+        rota: '/planningpokerform',
         img: '{story_point}'
     }
 

@@ -115,20 +115,12 @@ class App extends Component {
               <Route path="/burndown" component={Burndown} />
               <Route path="/login" component={Login} />
               <Route path="/logout" component={Logout} />
-              <Route path="/plannningpokerform" component={PlanningPokerForm} />
+              <Route path="/planningpokerform" component={PlanningPokerForm} />
               <Route path="/planningpokercards" component={PlanningPokerCards} />
               {/*<Route path='*' component={ErrorComponent} />*/}
             </Switch>
           </div>
         </BrowserRouter>
-        {/*<Router> 
-          <Fragment> 
-            <Route exact path="/" component={Home} /> 
-            <Route path="/planningpoker" component={PlanningPoker} />
-            <Route path="/kanban" component={Kanban} /> 
-            <Route path="/burndown" component={Burndown} /> 
-          </Fragment> 
-        </Router>*/}
       </div>
     );
   }
