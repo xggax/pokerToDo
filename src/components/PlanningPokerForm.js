@@ -27,11 +27,11 @@ class PlanningPokerForm extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        const press = this.state.pressionado;
+        //this.clearForm();
         this.setState({
-            pressionado: press
+            pressionado: ''
         })
-        this.clearForm();
+        
     }
 
     handleChangeInputGameName(event) {
@@ -51,10 +51,21 @@ class PlanningPokerForm extends Component {
     }
 
     clearForm() {
-        this.setState({ gameName1: '' });
+        this.setState({
+            gameName1: '',
+            gameDescription2: '',
+            typeOfCards3: '',
+            name4: ''
+
+        })
     }
 
     render() {
+        // O valor inicial do estado "pressionado" é nulo,
+        // ou seja, o render está mostrando na tela o formulário.
+        // Quando clicar no botão e submeter o form, a função "handleSubmit" será chamada,
+        // essa função irá setar o estado "pressionado" para um valor diferente de nulo
+        // o que fará com que seja renderizado a outra condição que é a sala de planning.
         if (this.state.pressionado === null) {
             return (
                 <div className="container">
@@ -65,11 +76,11 @@ class PlanningPokerForm extends Component {
 
                         <label className="sr-only" for="gameName1">Nome do Projeto</label>
                         <input type="text" value={this.state.gameName1} onChange={this.handleChangeInputGameName}
-                        /*ref={input => _gameName1 = input}*/ className="form-control mb-2 mr-sm-2" id="gameName1" placeholder="Nome do Projeto" /><br />
+                         className="form-control mb-2 mr-sm-2" id="gameName1" placeholder="Nome do Projeto" /><br />
 
                         <label className="sr-only">Descrição do Projeto</label>
                         <input type="text" value={this.state.gameDescription2} onChange={this.handleChangeInputGameDescription}
-                        /*ref={input => _gameDescription2 = input}*/ className="form-control mb-2 mr-sm-2" id="gameDescription2" placeholder="Descrição do Projeto" /><br />
+                         className="form-control mb-2 mr-sm-2" id="gameDescription2" placeholder="Descrição do Projeto" /><br />
 
                         <label className="sr-only" for="typeOfCards3">Tipo de Cartas</label>
                         <select value={this.state.typeOfCards3} onChange={this.handleChangeSelectTypeOfCards3}
@@ -81,9 +92,9 @@ class PlanningPokerForm extends Component {
                         </select>
                         <br />
 
-                        <label className="sr-only" for="name4">Nome do Player</label>
-                        <input type="text" name4={this.state.value} onChange={this.handleChangeInputName4}
-                        /* ref={input => _name4 = input}*/ className="form-control mb-2 mr-sm-2" id="name4" placeholder="Seu nome, ScrumMaster!" />
+                        <label className="sr-only" for="name4">Nome</label>
+                        <input type="text" value={this.state.name4} onChange={this.handleChangeInputName4}
+                         className="form-control mb-2 mr-sm-2" id="name4" placeholder="Seu nome, ScrumMaster!" />
                         <br />
 
                         <div className="center">
@@ -94,7 +105,14 @@ class PlanningPokerForm extends Component {
             )
         } else {
             return (
-                <div><PlanningPokerCards/></div>
+                <div><PlanningPokerCards 
+                nome={this.state.name4} 
+                tipoCarta={this.state.typeOfCards3}
+                descricao={this.state.gameDescription2}
+                projetoNome={this.state.gameName1}
+                isScrumMaster={this.state.isScrumMaster}
+                />
+                </div>
             )
         }
 

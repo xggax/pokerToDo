@@ -20,7 +20,7 @@ const NavBar = (props) => (
 
                         <div>
                             <ul className="navbar-nav mr-auto">
-
+                               { /*className="btn btn-secondary  mr-sm-2"*/}
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/planningpokerform">Planning Poker</Link>
                                 </li>
@@ -30,14 +30,14 @@ const NavBar = (props) => (
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/burndown">Burndown</Link>
                                 </li>
-                                <li>
-                                    <Link className="btn btn-secondary  mr-sm-2" to="/profile" title="Perfil"><i className="fas fa-user"></i></Link>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/profile" title="Perfil"><i className="fas fa-user fa-sm"></i></Link>
                                 </li>
-                                <li>
-                                    <Link className="btn btn-secondary  mr-sm-2" to="/settings" title="Settings"><i className="fas fa-cogs"></i></Link>
+                                <li className="nav-item">
+                                    <Link  className="nav-link" to="/settings" title="Settings"><i className="fas fa-cogs fa-sm"></i></Link>
                                 </li>
-                                <li>
-                                    <Link className="btn btn-secondary  mr-sm-2" to="/logout" title="logout"><i className="fas fa-sign-out-alt"></i></Link>
+                                <li className="nav-item">
+                                    <Link className="nav-link"  to="/logout" title="logout"><i className="fas fa-sign-out-alt fa-sm"></i></Link>
                                 </li>
                                 
                             </ul>

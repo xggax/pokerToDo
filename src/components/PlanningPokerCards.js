@@ -4,6 +4,7 @@ import Tarefa from '../tarefa/Tarefa';
 import TarefaForm from '../tarefaForm/TarefaForm';
 import { fire, database } from './firebase/firebase';
 import 'firebase/database';
+import propTypes from 'prop-types';
 
 class PlanningPokerCards extends Component {
 
@@ -14,6 +15,12 @@ class PlanningPokerCards extends Component {
     constructor(props) {
         super(props);
 
+        this.nome = props.nome;
+        this.descricao = props.descricao;
+        this.tipoCarta =  props.tipoCarta;
+        this.projetoNome = props.projetoNome;
+        this.isScrumMaster = props.isScrumMaster;
+        
         this.database = fire.database().ref().child('tarefas');
 
         this.state = {
@@ -22,17 +29,6 @@ class PlanningPokerCards extends Component {
             cardVoted: null,
             authenticated: "s",
             scrumMaster: "s",
-            cont0: 0,
-            cont12: 0,
-            cont1: 0,
-            cont2: 0,
-            cont3: 0,
-            cont5: 0,
-            cont8: 0,
-            cont13: 0,
-            cont20: 0,
-            cont40: 0,
-            cont99: 0,
         }
 
         //Bind das funções do form para submit e inputs
@@ -123,9 +119,10 @@ class PlanningPokerCards extends Component {
     }
 
 
-    render() {
+    render(props) {
         return (
             <div className="containner">
+            <p>Olá {this.nome}</p>
                 <div className="row">
                     <div className="col-sm-6">
                         <br />
@@ -271,13 +268,22 @@ class PlanningPokerCards extends Component {
                     </div>
                     <div className="col-sm-2">
                         <br />
-                        <Participants />
+                        {/*Aqui vai entrar um array de participante, cada participante vai ser renderizado usando map, que nem em tarefas*/}
+                        <Participants/>
                     </div>
                 </div>
                 <br />
             </div>
         )
     }
+}
+
+PlanningPokerCards.propTypes = {
+    nome: propTypes.string,
+    tipoCarta: propTypes.string,
+    projetoNome: propTypes.string,
+    descricao: propTypes.string
+
 }
 
 export default PlanningPokerCards;
