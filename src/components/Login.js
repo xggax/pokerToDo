@@ -19,8 +19,8 @@ class Login extends Component {
         this.state = {
             redirect: false,
             year: new Date().getFullYear(),
-            user: null
-
+            user: null,
+            token: ''
         }
 
     }
@@ -29,13 +29,14 @@ class Login extends Component {
         // console.log("Autenticado com o google");
         fire.auth().signInWithPopup(googleProvider)
             .then((result) => {
-                    const user = result.user;
+                    //const user = result.user;
                     this.setState({ 
-                        user: user,
+                        token: result.credential.accessToken,
+                        user: result.user,
                         redirect: true,   
                      });
             })
-            .catch((error) => {
+            .catch(error => {
                     //alert('Incapaz de conectar com o Google!')
                     this.toaster.show({
                         intent: Intent.DANGER,
@@ -52,8 +53,10 @@ class Login extends Component {
 
         fire.auth().fetchProvidersForEmail(email)
             .then((googleProvider) => {
-                if (googleProvider.length === 0) { // criar usuário, essa pessoa não tem uma conta.
+                // criar usuário, essa pessoa não tem uma conta.
+                if (googleProvider.length === 0) { 
                     return fire.auth().createUserWithEmailAndPassword(email, password)
+                    
                 } 
                 else if (googleProvider.indexOf("password") === -1) {
                     // Usaram o Google
@@ -63,14 +66,14 @@ class Login extends Component {
                     })
                     this.loginForm.reset();
                 } else {
-                    // Usuário está logado
+                    // Usuário faz login normal
                     return fire.auth().signInWithEmailAndPassword(email, password)
                 }
             })
             .then((user) => {
 
                 if (user && user.email) {
-                    this.loginForm.reset()
+
                     this.setState({ redirect: true })
                 }
             })

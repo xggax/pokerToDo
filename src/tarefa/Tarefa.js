@@ -8,6 +8,7 @@ class Tarefa extends Component {
 
         this.tarefaContent = props.tarefaContent;
         this.tarefaId = props.tarefaId;
+        this.one = props.one;
 
         this.handleRemoveTarefa = this.handleRemoveTarefa.bind(this);
 
@@ -19,14 +20,25 @@ class Tarefa extends Component {
 
 
     render(props) {
-        return (
-            <div className="tarefa fade-in">
-                <div className="closebtn" onClick={() => this.handleRemoveTarefa(this.tarefaId)}>
-                    &times;
+        if(this.one === true){
+            return (
+                <div className="tarefa-marcada fade-in">
+                    <div className="closebtn" onClick={() => this.handleRemoveTarefa(this.tarefaId)}>
+                        &times;
+                    </div>
+                    <p className="tarefaContent">{this.tarefaContent}</p>
                 </div>
-                <p className="tarefaContent">{this.tarefaContent}</p>
-            </div>
-        );
+            )
+        }else{
+            return (
+                <div className="tarefa-marcada fade-in">
+                    <div className="closebtn" onClick={() => this.handleRemoveTarefa(this.tarefaId)}>
+                        &times;
+                    </div>
+                    <p className="tarefaContent">{this.tarefaContent}</p>
+                </div>
+            )
+        }
     }
 }
 

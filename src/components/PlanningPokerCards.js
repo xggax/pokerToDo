@@ -15,12 +15,12 @@ class PlanningPokerCards extends Component {
     constructor(props) {
         super(props);
 
-        this.nome = props.nome;
+        //this.nome = props.nome;
         this.descricao = props.descricao;
-        this.tipoCarta =  props.tipoCarta;
+        this.tipoCarta = props.tipoCarta;
         this.projetoNome = props.projetoNome;
         this.isScrumMaster = props.isScrumMaster;
-        
+
         this.database = fire.database().ref().child('tarefas');
 
         this.state = {
@@ -28,7 +28,11 @@ class PlanningPokerCards extends Component {
             valueCard: null,
             cardVoted: null,
             authenticated: "s",
-            scrumMaster: "s",
+            user: null,
+            foto: null,
+            email: null,
+            one: true,
+            choice: 'X'
         }
 
         //Bind das funções do form para submit e inputs
@@ -49,6 +53,28 @@ class PlanningPokerCards extends Component {
     }
 
     componentWillMount() {
+        fire.auth().onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in.
+                const displayName = user.displayName;
+                const email = user.email;
+                const emailVerified = user.emailVerified;
+                const photoURL = user.photoURL;
+                const isAnonymous = user.isAnonymous;
+                const uid = user.uid;
+                const providerData = user.providerData;
+
+                this.setState({
+                    user: displayName,
+                    foto: photoURL,
+                    email: email
+                });
+            } else {
+                // User is signed out.
+                // ...
+            }
+        });
+
         const tarefaAnterior = this.state.tarefas
 
         //DataSnapshot
@@ -75,6 +101,8 @@ class PlanningPokerCards extends Component {
                 tarefas: tarefaAnterior
             })
         })
+
+
 
     }
 
@@ -119,10 +147,18 @@ class PlanningPokerCards extends Component {
     }
 
 
+
+
     render(props) {
         return (
             <div className="containner">
-            <p>Olá {this.nome}</p>
+                <div>
+                    {this.state.foto ? (<div>
+                    <img src={this.state.foto} width="50" height="50" alt="foto perfil" />
+                    <p>Bem-vindo {this.state.user} :)</p></div>)
+                    : (null)
+                    }
+                </div>
                 <div className="row">
                     <div className="col-sm-6">
                         <br />
@@ -132,8 +168,8 @@ class PlanningPokerCards extends Component {
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12">
-
-                                    <h3>Painel de Votação</h3>
+                                    <h3>Painel de Votação {this.projetoNome}</h3>
+                                    <h5>{this.descricao}</h5>
                                     <div className="panel panel-default">
                                         <div className="panel-body">
                                             <p>Cartas viradas representando cada membro devem estar aqui viradas</p>
@@ -141,6 +177,21 @@ class PlanningPokerCards extends Component {
                                             <p>Ao finalizar a rodada as cartas devem ter seus estados trocados<br />
                                                 para os estados atuais de valores da votação de cada membro para a estória
                                         </p>
+                                            <div className="row">
+                                                <div className="col-sm-2">
+                                                    { this.state.user && this.isScrumMaster ? (
+                                                        <div>teste</div>
+                                                    )
+
+                                                    :(
+                                                        <input type="button" className="btn btn-outline-secondary" data-point="0" value={this.state.choice} />
+                                                        
+                                                    )
+                                                        
+                                                    }
+                                                    
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -249,12 +300,29 @@ class PlanningPokerCards extends Component {
                             <div className="tarefasBody">
                                 {
                                     this.state.tarefas.map((tarefas) => {
-                                        return (
-                                            <Tarefa tarefaContent={tarefas.tarefaContent}
-                                                tarefaId={tarefas.id}
-                                                key={tarefas.id}
-                                                removerTarefa={this.removerTarefa} />
-                                        )
+                                        if (this.state.tarefas[0] && this.state.tarefas !== null) {
+                                            return (
+
+                                                <Tarefa tarefaContent={tarefas.tarefaContent}
+                                                    tarefaId={tarefas.id}
+                                                    key={tarefas.id}
+                                                    removerTarefa={this.removerTarefa}
+                                                    pos={this.state.one}
+                                                />
+
+                                            )
+                                        } else {
+                                            return (
+
+                                                <Tarefa tarefaContent={tarefas.tarefaContent}
+                                                    tarefaId={tarefas.id}
+                                                    key={tarefas.id}
+                                                    removerTarefa={this.removerTarefa}
+                                                    pos={!(this.state.one)}
+                                                />
+
+                                            )
+                                        }
                                     })
                                 }
                             </div>
@@ -269,7 +337,7 @@ class PlanningPokerCards extends Component {
                     <div className="col-sm-2">
                         <br />
                         {/*Aqui vai entrar um array de participante, cada participante vai ser renderizado usando map, que nem em tarefas*/}
-                        <Participants/>
+                        <Participants />
                     </div>
                 </div>
                 <br />

@@ -12,7 +12,7 @@ import Login from './components/Login';
 import Logout from './components/Logout'
 import PlanningPokerForm from './components/PlanningPokerForm';
 import PlanningPokerCards from './components/PlanningPokerCards';
-import { fire, base } from './components/firebase/firebase';
+import { fire, base, auth} from './components/firebase/firebase';
 
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import { Spinner } from '@blueprintjs/core';

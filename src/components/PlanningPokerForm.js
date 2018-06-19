@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PlanningPokerCards from './PlanningPokerCards';
+import { fire, auth, database } from './firebase/firebase';
 
 
 class PlanningPokerForm extends Component {
@@ -7,18 +8,21 @@ class PlanningPokerForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            partida: [],
             gameName1: '',
             gameDescription2: '',
             typeOfCards3: '',
-            name4: '',
-            pressionado: null,
-            isScrumMaster: null
+            //name4: '',
+            pressionado: false,
+            isScrumMaster: false
         };
+
+        this.database = fire.database().ref().child('partidas');
 
         this.handleChangeInputGameName = this.handleChangeInputGameName.bind(this);
         this.handleChangeInputGameDescription = this.handleChangeInputGameDescription.bind(this);
         this.handleChangeSelectTypeOfCards3 = this.handleChangeSelectTypeOfCards3.bind(this);
-        this.handleChangeInputName4 = this.handleChangeInputName4.bind(this);
+        //this.handleChangeInputName4 = this.handleChangeInputName4.bind(this);
 
         this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -27,9 +31,19 @@ class PlanningPokerForm extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        //this.clearForm();
+        const partidasRef = fire.database().ref('partidas');
+        const partida = {
+        gameName1: this.state.gameName1,
+        gameDescription2: this.state.gameDescription2,
+        typeOfCards3: this.state.typeOfCards3,
+        //name4: this.state.name4,
+        pressionado: '',
+        isScrumMaster: ''
+        }
+        partidasRef.push(partida);
         this.setState({
-            pressionado: ''
+            pressionado: '',
+            isScrumMaster: ''
         })
         
     }
@@ -55,7 +69,7 @@ class PlanningPokerForm extends Component {
             gameName1: '',
             gameDescription2: '',
             typeOfCards3: '',
-            name4: ''
+            //name4: ''
 
         })
     }
@@ -66,7 +80,7 @@ class PlanningPokerForm extends Component {
         // Quando clicar no botão e submeter o form, a função "handleSubmit" será chamada,
         // essa função irá setar o estado "pressionado" para um valor diferente de nulo
         // o que fará com que seja renderizado a outra condição que é a sala de planning.
-        if (this.state.pressionado === null) {
+        if (this.state.pressionado === false) {
             return (
                 <div className="container">
                     
@@ -86,16 +100,20 @@ class PlanningPokerForm extends Component {
                         <select value={this.state.typeOfCards3} onChange={this.handleChangeSelectTypeOfCards3}
                             className="form-control mb-2 mr-sm-2" id="cardstype3">
                             <option selected value="fibonnaci">Fibonnaci</option>
-                            <option value="scrum">Scrum</option>
+                            {/*<option value="scrum">Scrum</option>
                             <option value="sequence">Sequencial</option>
-                            <option value="t-shirt">T-Shirt</option>
+                            <option value="t-shirt">T-Shirt</option>*/}
                         </select>
                         <br />
-
+                        
+                        {
+                        /*
                         <label className="sr-only" for="name4">Nome</label>
                         <input type="text" value={this.state.name4} onChange={this.handleChangeInputName4}
                          className="form-control mb-2 mr-sm-2" id="name4" placeholder="Seu nome, ScrumMaster!" />
                         <br />
+                        */
+                        }
 
                         <div className="center">
                             <button type="submit" className="btn btn-primary center">Iniciar</button>
@@ -106,7 +124,7 @@ class PlanningPokerForm extends Component {
         } else {
             return (
                 <div><PlanningPokerCards 
-                nome={this.state.name4} 
+                //nome={this.state.name4} 
                 tipoCarta={this.state.typeOfCards3}
                 descricao={this.state.gameDescription2}
                 projetoNome={this.state.gameName1}
@@ -120,113 +138,3 @@ class PlanningPokerForm extends Component {
 }
 
 export default PlanningPokerForm;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*import React, { Component } from 'react';
-
-class PlanningPokerForm extends Component {
-    
-    constructor(){
-        super();
-        this.state = {
-            gameName: '',
-            gameDescription:'',
-            typeOfCards:'',
-            whocreate:'1'
-        };
-        
-        this.handleInputChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-    
-    handleInputChange(event) {
-        this.setState({
-            gameName: event.target.value,
-            gameDescription: event.target.value,
-            typeOfCards: event.target.value,
-            }
-        );
-      }
-    
-    handleSubmit(event){
-        alert('Os dados foram submetidos: ' + this.state.gameName.value + ' ' + this.state.gameDescription.value + ' ' + this.state.typeOfCards.value + ' ' + this.state.whocreate.value + '.')
-        clearForm();
-    }
-        
-
-
-    clearForm = () => {
-        {
-            this.setState.gameName = '',
-        }
-        
-
-    }
-
-    render() {
-        return (
-            <div className="container">
-            <h1>PlanningPokerForm</h1>
-            <form onSubmit={handleSubmit} className="form-inline">
-            <label className="sr-only" for="gamename1">Nome do jogo</label>
-            <input type="text" onChange={this.handleInputChange} ref={input => _gameName1 = input} className="form-control mb-2 mr-sm-2" 
-            id="gamename1" placeholder="Nome do jogo" />
-
-            <label className="sr-only" for="description2">Descrição</label>
-            <input type="text" ref={input => _gameDescription2 = input} className="form-control mb-2 mr-sm-2" 
-            id="description2" placeholder="Descrição do Jogo" />
-
-            <label className="sr-only" for="cardstype3">Tipo de Cartas</label>
-            <select type="text" ref={input => _typeOfCards3 = input} className="form-control mb-2 mr-sm-2" 
-            id="cardstype3" placeholder="Tipo de Cartas">
-                <option value="scrum">Scrum (padrão)</option>
-                <option selected value="fibonnaci">Fibonnaci</option>
-                <option value="sequence">Sequencial</option>
-                <option value="t-shirt">T-Shirt</option>
-            </select>
-            <button type="submit" className="btn btn-primary mb-2">Iniciar</button>
-        </form>
-        </div>
-        )
-    }
-}
-
-export default PlanningPokerForm;
-*/
