@@ -27,15 +27,15 @@ const NavBar = (props) => (
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/kanban">Kanban</Link>
                                 </li>
-                                <li className="nav-item">
+                                {/*<li className="nav-item">
                                     <Link className="nav-link" to="/burndown">Burndown</Link>
-                                </li>
+                                </li>*/}
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/profile" title="Perfil"><i className="fas fa-user fa-sm"></i></Link>
                                 </li>
-                                <li className="nav-item">
+                                {/*<li className="nav-item">
                                     <Link  className="nav-link" to="/settings" title="Settings"><i className="fas fa-cogs fa-sm"></i></Link>
-                                </li>
+                            </li>*/}
                                 <li className="nav-item">
                                     <Link className="nav-link"  to="/logout" title="logout"><i className="fas fa-sign-out-alt fa-sm"></i></Link>
                                 </li>

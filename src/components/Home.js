@@ -3,10 +3,15 @@ import HomeCard from '../ui/HomeCard';
 
 class Home extends Component {
 
+    constructor(props){
+        super(props)
+        this.authenticated = props.authenticated;
+    }
+
     homeCardPlanningPoker = {
         alt: 'Planning Poker',
         title: 'Planning Poker',
-        text: 'Texto aqui desse card mirabolante e insano!',
+        text: 'Ferramenta de Estimativa',
         goto: 'Planning Poker',
         rota: '/planningpokerform',
         img: '{story_point}'
@@ -15,7 +20,7 @@ class Home extends Component {
     homeCardKanban = {
         alt: 'Kanban',
         title: 'Kanban',
-        text: 'Texto aqui desse card mirabolante e insano!',
+        text: 'Acompanhe e organize seu Backlog',
         goto: 'Kanban',
         rota: '/kanban',
         img: '{kanban}'
@@ -36,10 +41,9 @@ class Home extends Component {
         return (
             <div className="container text-center">
                 <div className="row">
-                    {this.props.authenticated}
                     <HomeCard {...this.homeCardPlanningPoker} />
                     <HomeCard {...this.homeCardKanban} />
-                    <HomeCard {...this.homeCardBurndown} />
+                    {/*<HomeCard {...this.homeCardBurndown} />*/}
                 </div>
             </div>
         );

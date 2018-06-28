@@ -6,7 +6,7 @@ import { Link, BrowserRouter } from 'react-router-dom'
 
 const HomeCard = (props) => (
 
-    <div className="col-12 col-sm-4">
+    <div className="col-12 col-sm-6">
         <div className="card" >
             <img className="card-img-top rounded mx-auto d-block" style={{ paddingTop: '3px', width: '100px', height: '100px' }} src={kanban} alt={props.alt} />
             <div className="card-body">

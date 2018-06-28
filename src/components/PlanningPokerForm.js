@@ -18,6 +18,7 @@ class PlanningPokerForm extends Component {
         };
 
         this.database = fire.database().ref().child('partidas');
+        //this.database = fire.database().ref(`partidas/${user.uid}`);
 
         this.handleChangeInputGameName = this.handleChangeInputGameName.bind(this);
         this.handleChangeInputGameDescription = this.handleChangeInputGameDescription.bind(this);
@@ -32,6 +33,7 @@ class PlanningPokerForm extends Component {
     handleSubmit(event) {
         event.preventDefault();
         const partidasRef = fire.database().ref('partidas');
+        
         const partida = {
         gameName1: this.state.gameName1,
         gameDescription2: this.state.gameDescription2,
@@ -45,6 +47,8 @@ class PlanningPokerForm extends Component {
             pressionado: '',
             isScrumMaster: ''
         })
+
+       // this.database = fire.database().ref(`partidas/${user.uid}`);
         
     }
 
@@ -100,9 +104,9 @@ class PlanningPokerForm extends Component {
                         <select value={this.state.typeOfCards3} onChange={this.handleChangeSelectTypeOfCards3}
                             className="form-control mb-2 mr-sm-2" id="cardstype3">
                             <option selected value="fibonnaci">Fibonnaci</option>
-                            {/*<option value="scrum">Scrum</option>
+                            <option value="scrum">Scrum</option>
                             <option value="sequence">Sequencial</option>
-                            <option value="t-shirt">T-Shirt</option>*/}
+                            <option value="t-shirt">T-Shirt</option>
                         </select>
                         <br />
                         

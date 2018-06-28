@@ -3,6 +3,8 @@ import login from '../images/login.png';
 import { Redirect } from 'react-router-dom';
 import { auth, fire, googleProvider } from './firebase/firebase';
 import { Toaster, Intent } from '@blueprintjs/core'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -19,8 +21,8 @@ class Login extends Component {
         this.state = {
             redirect: false,
             year: new Date().getFullYear(),
-            user: null,
-            token: ''
+           //user: null,
+           // token: ''
         }
 
     }
@@ -32,7 +34,7 @@ class Login extends Component {
                     //const user = result.user;
                     this.setState({ 
                         token: result.credential.accessToken,
-                        user: result.user,
+                       // user: result.user,
                         redirect: true,   
                      });
             })
@@ -51,11 +53,13 @@ class Login extends Component {
         const email = this.emailInput.value;
         const password = this.passwordInput.value;
 
-        fire.auth().fetchProvidersForEmail(email)
+        fire.auth().fetchSignInMethodsForEmail(email)
             .then((googleProvider) => {
                 // criar usuário, essa pessoa não tem uma conta.
                 if (googleProvider.length === 0) { 
-                    return fire.auth().createUserWithEmailAndPassword(email, password)
+                    return fire.auth().createUserWithEmailAndPassword(email, password) && this.setState({
+                        redirect: true,   
+                     });
                     
                 } 
                 else if (googleProvider.indexOf("password") === -1) {
@@ -67,16 +71,19 @@ class Login extends Component {
                     this.loginForm.reset();
                 } else {
                     // Usuário faz login normal
-                    return fire.auth().signInWithEmailAndPassword(email, password)
+                    return fire.auth().signInWithEmailAndPassword(email, password) && this.setState({
+                        redirect: true,   
+                     });
+                    
                 }
             })
-            .then((user) => {
+           /* .then((user) => {
 
                 if (user && user.email) {
 
                     this.setState({ redirect: true })
                 }
-            })
+            })*/
             .catch((error) => {
                 //alert('incapaz de conectar com o Google, verifique se seu email ou senha estão corretos!')
                 this.toaster.show({
@@ -88,11 +95,13 @@ class Login extends Component {
 
 
     render() {
-        const { from } = this.props.location.state || { from: { pathname: '/home' } }
+        
+        const { from } = this.props.location.state || { from: { pathname: '/home' } };
 
         if (this.state.redirect === true) {
             return <Redirect to={from} />
         }
+
         return (
             <div className="container">
                 <div className="row">
@@ -107,8 +116,12 @@ class Login extends Component {
                                     <button type="submit" onClick={() => { this.authWithGoogle() }} className="btn btn-primary btn-block">Login com Google</button>
                                     <hr style={{ marginTop: "10px", marginBottom: "10px" }} />
                                     <div style={{ marginBottom: "10px" }} className="">
-                                        <h5>Nota</h5>
-                                        Caso <strong>não possua</strong> uma conta, o formulário abaixo irá criar sua conta. <br/>Se <strong>já tens</strong>, é só logar!
+                                        <h5 className="center">Cadastro/Login</h5>
+                                        <p>
+                                        Caso <strong>não possua</strong> uma conta, o formulário abaixo irá criar sua conta
+                                        e redirecioná-lo para a página principal.
+                                        Se <strong>já tens</strong>, é só logar!
+                                        </p>
                                     </div>
                                     <form onSubmit={(event) => { this.authWithEmailPassword(event) }} ref={(form) => { this.loginForm = form }}>
                                         <div className="form-group">

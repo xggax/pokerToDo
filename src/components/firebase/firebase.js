@@ -1,4 +1,4 @@
-import firebase from 'firebase/app';
+import firebase from 'firebase';
 import Rebase from 're-base';
 
   // Initialize Firebase

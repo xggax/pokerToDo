@@ -14,9 +14,7 @@ import PlanningPokerForm from './components/PlanningPokerForm';
 import PlanningPokerCards from './components/PlanningPokerCards';
 import { fire, base, auth} from './components/firebase/firebase';
 
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import { Spinner } from '@blueprintjs/core';
-import Apresentation from './components/Apresentation';
+
 
 
 function AuthenticatedRoute({ Component: Component, authenticated, ...rest }) {
@@ -26,18 +24,18 @@ function AuthenticatedRoute({ Component: Component, authenticated, ...rest }) {
       render={
         (props) => (authenticated === true)
         ? <Component {...props} {...rest} />
-      : <Redirect to='/login' /> } />
+      : <Redirect to={{ pathname: '/login', state: { from: props.location }} } /> } />
   )
 }
 
-// {{ pathname: '/login', state: { from: props.location }} } /> } />
-
+// ={{ pathname: '/login', state: { from: props.location }} } /> } />
+// ='/login' /> } />
 class App extends Component {
 
 
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       authenticated: false,
       //currentUser: null,

@@ -5,7 +5,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 import 'normalize.css/normalize.css';
-import '@blueprintjs/core';
+import '@blueprintjs/core/dist/core.bundle';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

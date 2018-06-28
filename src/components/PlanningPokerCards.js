@@ -22,6 +22,7 @@ class PlanningPokerCards extends Component {
         this.isScrumMaster = props.isScrumMaster;
 
         this.database = fire.database().ref().child('tarefas');
+        this.database = fire.database().ref().child('tarefas');
 
         this.state = {
             tarefas: [],
@@ -154,11 +155,39 @@ class PlanningPokerCards extends Component {
             <div className="containner">
                 <div>
                     {this.state.foto ? (<div>
-                    <img src={this.state.foto} width="50" height="50" alt="foto perfil" />
-                    <p>Bem-vindo {this.state.user} :)</p></div>)
-                    : (null)
+                        <img src={this.state.foto} width="50" height="50" alt="foto perfil" />
+                        <p>Bem-vindo {this.state.user} :)</p></div>)
+                        : (null)
                     }
                 </div>
+
+
+{/*
+                <div className='container'>
+                    <section className='display-item'>
+                        <div className="wrapper">
+                            <ul>
+                                {this.state.items.map((item) => {
+                                    return (
+                                        <li key={item.id}>
+                                            <h3>{item.title}</h3>
+                                            <p>brought by: {item.user}
+                                                {item.user === this.state.user.displayName || item.user === this.state.user.email ?
+                                                    <button onClick={() => this.removeItem(item.id)}>Remove Item</button> : null}
+                                            </p>
+                                        </li>
+                                    )
+                                })}
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+
+
+                            */}
+
+
+
                 <div className="row">
                     <div className="col-sm-6">
                         <br />
@@ -179,17 +208,17 @@ class PlanningPokerCards extends Component {
                                         </p>
                                             <div className="row">
                                                 <div className="col-sm-2">
-                                                    { this.state.user && this.isScrumMaster ? (
+                                                    {this.state.user && this.isScrumMaster ? (
                                                         <div>teste</div>
                                                     )
 
-                                                    :(
-                                                        <input type="button" className="btn btn-outline-secondary" data-point="0" value={this.state.choice} />
-                                                        
-                                                    )
-                                                        
+                                                        : (
+                                                            <input type="button" className="a btn btn-outline-secondary" data-point="0" value={this.state.choice} />
+
+                                                        )
+
                                                     }
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
