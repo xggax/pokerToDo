@@ -1,9 +1,9 @@
-import Rebase from 're-base';
 import firebase from 'firebase/app'; 
 import 'firebase/auth'; 
 import 'firebase/database';
+import Rebase from 're-base';
 
-  // Initialize Firebase
+// Initialize Firebase
   var config = {
     apiKey: "AIzaSyCmSMOFak6bVVgjClGBzN2vSmTHKJVWcbg", //process.env.REACT_APP_FIREBASE_KEY 
     authDomain: "pokertodo-23459.firebaseapp.com",  //process.env.REACT_APP_FIREBASE_KEY_DOMAIN
@@ -12,7 +12,7 @@ import 'firebase/database';
     storageBucket: "pokertodo-23459.appspot.com",   //process.env.REACT_APP_FIREBASE_KEY_STORAGE_BUCKET
     messagingSenderId: "1056472146739"  //process.env.REACT_APP_FIREBASE_KEY_SENDER_ID
   };
-  
+
   
   const fire = firebase.initializeApp(config);
   const database = firebase.database();
