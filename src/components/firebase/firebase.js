@@ -1,5 +1,7 @@
-import firebase from 'firebase';
 import Rebase from 're-base';
+import firebase from 'firebase/app'; 
+import 'firebase/auth'; 
+import 'firebase/database';
 
   // Initialize Firebase
   var config = {

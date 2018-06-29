@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Popup from "reactjs-popup";
 
 class Participants extends Component {
     render() {
@@ -9,8 +10,22 @@ class Participants extends Component {
                 <div className="container">
                     <div className="panel panel-default">
                         <div className="panel-heading">
-                            Participantes <i className="fas fa-plus-circle fa-xs"></i>
-                        </div><br />
+                            Participantes 
+                            <Popup trigger={<button> <i className="fas fa-plus-circle fa-sm"></i></button>} 
+                             modal
+                             closeOnDocumentClick>
+                            <span> Modal content<br/>
+                            Modal content<br/> 
+                            Modal content<br/>
+                            Modal content<br/>
+                            Modal content<br/>
+                            Modal content<br/>
+                            Modal content<br/>
+                            Modal content<br/>
+                            Modal content<br/>
+                            Modal content<br/></span>
+                            </Popup>
+                            </div><br />
                         <div className="panel-body">
                             <p>Membro1</p>
                             <p>Membro2</p>
